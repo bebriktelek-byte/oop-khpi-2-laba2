@@ -1,0 +1,45 @@
+@startuml
+skinparam linetype ortho
+skinparam nodesep 100
+skinparam classAttributeIconSize 0
+
+class MedicalPassport {
+  - passportId: String
+  + MedicalPassport(String)
+  + toString(): String
+}
+
+class Pet {
+  - id: String
+  - name: String
+  - age: int
+  - isHealthy: boolean
+  - medicalPassport: MedicalPassport
+  + Pet(String, String, int, boolean)
+  + Pet(String, String)
+  + checkHealth(): void
+  + toString(): String
+  + equals(Object): boolean
+  + hashCode(): int
+}
+
+class Dog {
+  - breed: String
+  + Dog(String, String, int, boolean, String)
+  + getBreed(): String
+}
+
+class Adopter {
+  - adopterId: String
+  - fullName: String
+  - pets: List<Pet>
+  + Adopter(String, String)
+  + addPet(Pet): void
+  + toString(): String
+}
+
+' Зв'язки
+Pet "1" *-- "1" MedicalPassport : композиція
+Adopter "1" o-- "0..*" Pet : агрегація
+Pet <|-- Dog : успадкування
+@enduml
